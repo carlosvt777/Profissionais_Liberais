@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedbacks do Profissional</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedbacks.css') }}" />
+</head>
+<body>
+  <div id="feedback-container">
+    <img src="{{ profissional.foto_perfil }}" alt="{{ profissional.nome }}" class="professional-photo" />
+    <h2>{{ profissional.nome }}</h2>
+    <p>{{ profissional.profissao }}</p>
+
+    <h3>Feedbacks:</h3>
+    <ul id="lista-comentarios">
+      {% for comentario in profissional.comentarios %}
+        <li>{{ comentario }}</li>
+      {% else %}
+        <li>Nenhum comentário ainda.</li>
+      {% endfor %}
+    </ul>
+
+    <form method="POST" action="/enviar-feedback">
+      <input type="hidden" name="profissional_id" value="{{ profissional.profissional_id }}">
+      <textarea name="comentario" placeholder="Deixe seu comentário..." rows="4" required style="width: 100%; padding: 10px; border-radius: 5px;"></textarea>
+      <button type="submit" class="voltar-btn" style="margin-top: 10px;">Enviar Comentário</button>
+    </form>
+
+    <button onclick="history.back()" class="voltar-btn">← Voltar</button>
+  </div>
+</body>
+</html>
